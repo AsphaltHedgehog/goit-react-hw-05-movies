@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import Loader from './Loader.js'
 
+import styles from './styles/Reviews.module.css';
 
 const Reviews = () => {
   const { filmId } = useParams();
@@ -35,23 +36,23 @@ const Reviews = () => {
     };
 
     if (!filmReviewsData.length) {
-      return <p>Sorry, no reviews available...</p>;
+      return <p className={styles.noReviews}>Sorry, no reviews available...</p>;
     };
 
     const ReviewsList = filmReviewsData.map(review => {
       const { author, content, id } = review;
       return (
-        <li key={id}>
-          <p>{`Author: ${author}`}</p>
-          <p>{content}</p>
+        <li key={id} className={styles.reviewItem}>
+          <p className={styles.author}>{`Author: ${author}`}</p>
+          <p className={styles.content}>{content}</p>
         </li>
       );
     })
-    return <ul>{ReviewsList}</ul>
+    return <ul className={styles.reviewList}>{ReviewsList}</ul>
   };
   
   return (
-    <div>
+    <div className={styles.reviewsContainer}>
       {renderReviews()}
     </div>
   );

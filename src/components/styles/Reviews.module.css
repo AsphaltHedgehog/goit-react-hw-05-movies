@@ -1,0 +1,26 @@
+.reviewsContainer {
+  padding: 20px;
+}
+
+.reviewList {
+  list-style: none;
+  padding: 0;
+}
+
+.reviewItem {
+  margin-bottom: 20px;
+}
+
+.author {
+  font-weight: bold;
+}
+
+.content {
+  margin-top: 5px;
+  color: #333;
+}
+
+.noReviews {
+  color: red;
+  font-weight: bold;
+}

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 import { fetchFilmInfo } from '../Api/MovieApi.js';
 
+import styles from './styles/MovieDetails.module.css';
+
 export const MovieDetails = () => {
   const { filmId } = useParams();
   const [filmData, setFilmData] = useState([]);
@@ -19,7 +21,6 @@ export const MovieDetails = () => {
       };
     };
     fetchData();
-    console.log(location.search);
   }, [filmId]);
 
 
@@ -41,17 +42,17 @@ export const MovieDetails = () => {
     const imgPath = `https://image.tmdb.org/t/p/w500/${poster_path}`
 
     return (
-      <section>
-        <img src={imgPath} alt={title} width='350'></img>
-        <div>
-          <h1>{`${title} (${year[0]})`}</h1>
+      <section className={styles.filmSection}>
+        <img src={imgPath} alt={title}  className={styles.poster} width='350'></img>
+        <div className={styles.infoSection}>
+          <h1 className={styles.title}>{`${title} (${year[0]})`}</h1>
           <p>{`User Score: ${Math.round(vote_average * 10)}%`}</p>
           <h2>Overview</h2>
           <p>
             {overview}
           </p>
           <h2>Genres</h2>
-          <p>
+          <p className={styles.genres}>
             {genresList}
           </p>
         </div>
@@ -60,7 +61,7 @@ export const MovieDetails = () => {
   };
   
   return (
-    <main>
+    <div>
       {
         location.state &&
         <Link to={location.state.from}>Go Back</Link>
@@ -80,6 +81,6 @@ export const MovieDetails = () => {
         </ul>
         <Outlet />
       </section>
-    </main>
+    </div>
   );
 };

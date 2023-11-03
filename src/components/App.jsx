@@ -8,25 +8,37 @@ import { NotFound } from '../Pages/NotFound'
 import Cast from './Cast';
 import Reviews from "./Reviews";
 
+import styles from './styles/App.module.css'
+
 export const App = () => {
   return (
     <div>
-      <header>
-        <nav>
+      <header className={styles.nav}>
+        <nav id="nav">
           <ul>
             <li>
-              <NavLink to='/'>Home</NavLink>
+              <NavLink exact='true'
+                style={({ isActive }) => ({
+                  color: isActive ? '#f76f00' : '#fff',
+                })}
+                to='/'>
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to='/movies'>Movies</NavLink>
+              <NavLink style={
+                ({ isActive }) => ({
+                  color: isActive ? '#f76f00' : '#fff',
+                })
+              } to='/movies'>Movies</NavLink >
             </li>
           </ul>
         </nav>
       </header>
-      <main>
+      <main className={styles.mainContainer}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Movies />} />
+          <Route path="/" element={<Home />} exact='true' />
+          <Route path="/movies" element={<Movies />} exact='true' />
           <Route path="/movies/:filmId" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />

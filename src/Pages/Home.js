@@ -20,11 +20,11 @@ export const Home = () => {
   }, []);
 
   return (
-    <main>
+    <div>
       <h1>Trending today</h1>
       <ul>
         {RenderMovieList(trending, '/')}
       </ul>
-    </main>
+    </div>
   );
 };

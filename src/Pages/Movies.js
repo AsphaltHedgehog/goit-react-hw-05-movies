@@ -1,4 +1,3 @@
-// import { Link } from "react-router-dom"
 import { useEffect, useState } from "react";
 
 import { useLocation, useSearchParams  } from "react-router-dom";
@@ -8,6 +7,8 @@ import { fetchFilmInfo } from '../Api/MovieApi.js';
 import RenderMovieList from '../components/RenderMovieList.js';
 
 import Loader from "components/Loader.js";
+
+import styles from "./styles/Movies.module.css";
 
 
 export const Movies = () => {
@@ -55,7 +56,7 @@ export const Movies = () => {
 
 
   return (
-    <main>
+    <div className={styles.container}>
       <form onSubmit={heandlerSubmit}>
         <input
           type="search"
@@ -68,10 +69,10 @@ export const Movies = () => {
       </form>
       {isLoading && <Loader />}
       {queryResult.length > 0 &&
-        (<ul>
+        (<ul className={styles.movieList}>
           {RenderMovieList(queryResult, location)}
         </ul>)  
       }
-    </main>
+    </div>
   );
 };

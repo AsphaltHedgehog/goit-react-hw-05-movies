@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 import Loader from './Loader.js';
 
+import styles from './styles/Cast.module.css';
+
 const Cast = () => {
   const { filmId } = useParams();
   const [filmCreditsData, setFilmCredits] = useState([]);
@@ -34,14 +36,18 @@ const Cast = () => {
     };
 
     if (!filmCreditsData.length) {
-      return <div>Sorry, server didn't respond</div>;
+      return <div
+        className={styles.errorMessage}
+      >
+        Sorry, server didn't respond
+      </div>;
     };
 
     const CreditsList = filmCreditsData.map(credit => {
       const { profile_path, name, character, id } = credit;
       const imgPath = `https://image.tmdb.org/t/p/w500/${profile_path}`
       return (
-      <li key={id}>
+      <li key={id} className={styles.castMember}>
         <img src={imgPath} alt={name} width='150'></img>
         <div>
           <p>{name}</p>
@@ -54,11 +60,12 @@ const Cast = () => {
   };
   
 
-  return (<div>
-    <ul>
-      {renderCredits()}
-    </ul>
-  </div>
+  return (
+    <div className={styles.castContainer}>
+      <ul className={styles.castList}>
+        {renderCredits()}
+      </ul>
+    </div>
   )
 
 
