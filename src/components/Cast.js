@@ -14,7 +14,10 @@ const Cast = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchFilmInfo(filmId, '/credits');
+        const response = await fetchFilmInfo(
+          'filmInfo',
+          filmId,
+          '/credits');
         setFilmCredits(response);
         setLoading(false)
       } catch (error) {

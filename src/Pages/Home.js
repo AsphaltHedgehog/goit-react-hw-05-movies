@@ -1,8 +1,8 @@
-import { fetchTrending } from '../Api/MovieApi.js'
+import { fetchFilmInfo } from '../Api/MovieApi.js'
 
 import { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import RenderMovieList from '../components/RenderMovieList.js'
 
 export const Home = () => {
   const [trending, setTrending] = useState([]);
@@ -10,7 +10,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchTrending();
+        const response = await fetchFilmInfo('trendingFilms');
         setTrending(response)
       } catch (error) {
         alert(error);
@@ -19,20 +19,12 @@ export const Home = () => {
     fetchData()
   }, []);
 
-  const RenderTrending = () => {
-    const fragment = trending.map(movie => {
-      const { id, title } = movie
-      return <li key={id}>
-        <Link to={`/movies/${id}`} state={{from: '/'}}>{title}</Link>
-      </li>
-    });
-    return fragment
-  };
-
-  return (<div>
-    <h1>Trending today</h1>
-    <ul>
-    {RenderTrending()}
-    </ul>
-  </div>)
-}
+  return (
+    <main>
+      <h1>Trending today</h1>
+      <ul>
+        {RenderMovieList(trending, '/')}
+      </ul>
+    </main>
+  );
+};

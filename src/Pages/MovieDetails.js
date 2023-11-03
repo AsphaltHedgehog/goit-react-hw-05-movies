@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
-import { fetchFilmInfo } from '../Api/MovieApi.js'
+import { fetchFilmInfo } from '../Api/MovieApi.js';
 
 export const MovieDetails = () => {
   const { filmId } = useParams();
@@ -12,13 +12,14 @@ export const MovieDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchFilmInfo(filmId,'');
+        const response = await fetchFilmInfo('filmInfo', filmId, '');
         setFilmData(response)
       } catch (error) {
         alert(error);
       };
     };
     fetchData();
+    console.log(location.search);
   }, [filmId]);
 
 
@@ -40,7 +41,7 @@ export const MovieDetails = () => {
     const imgPath = `https://image.tmdb.org/t/p/w500/${poster_path}`
 
     return (
-      <main>
+      <section>
         <img src={imgPath} alt={title} width='350'></img>
         <div>
           <h1>{`${title} (${year[0]})`}</h1>
@@ -54,30 +55,31 @@ export const MovieDetails = () => {
             {genresList}
           </p>
         </div>
-      </main>
+      </section>
     );
   };
+  
+  return (
+    <main>
+      {
+        location.state &&
+        <Link to={location.state.from}>Go Back</Link>
+      }
 
-  return (<main>
-    {
-      location.state &&
-      <Link to={location.state.from}>Go Back</Link>
-    }
+      {renderFilmInfo()}
 
-    {renderFilmInfo()}
-
-    <div>
-      <p>Additional Information</p>
-      <ul>
-        <li>
-          <Link to='cast'>Cast</Link>
-        </li>
-        <li>
-          <Link to='reviews'>Reviews</Link>
-        </li>
-      </ul>
-      <Outlet />
-    </div>
-  </main>
-  )
+      <section>
+        <p>Additional Information</p>
+        <ul>
+          <li>
+            <Link to='cast'>Cast</Link>
+          </li>
+          <li>
+            <Link to='reviews'>Reviews</Link>
+          </li>
+        </ul>
+        <Outlet />
+      </section>
+    </main>
+  );
 };

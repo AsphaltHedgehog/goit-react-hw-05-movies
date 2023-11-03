@@ -15,7 +15,10 @@ const Reviews = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchFilmInfo(filmId, '/reviews');
+        const response = await fetchFilmInfo(
+          'filmInfo',
+          filmId,
+          '/reviews');
         setFilmReviews(response)
         setLoading(false)
       } catch (error) {
