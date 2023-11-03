@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { fetchFilmInfo } from '../Api/MovieApi.js';
 
@@ -12,6 +12,7 @@ export const MovieDetails = () => {
   const { filmId } = useParams();
   const [filmData, setFilmData] = useState([]);
   const location = useLocation();
+  const refLocation = useRef(location)
 
   const [onImgError, setImgError] = useState(false)
 
@@ -77,8 +78,8 @@ export const MovieDetails = () => {
   return (
     <div>
       {
-        location.state &&
-        <Link to={location.state.from}>Go Back</Link>
+        refLocation.current.state &&
+        <Link to={refLocation.current.state.from}>Go Back</Link>
       }
 
       {renderFilmInfo()}
