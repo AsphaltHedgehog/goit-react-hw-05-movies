@@ -8,10 +8,13 @@ import Loader from './Loader.js';
 
 import styles from './styles/Cast.module.css';
 
+import imgPlaceholder from '../img/Portrait_Placeholder.png'
+
 const Cast = () => {
   const { filmId } = useParams();
   const [filmCreditsData, setFilmCredits] = useState([]);
   const [isLoading, setLoading] = useState(true);
+
   
   useEffect(() => {
     const fetchData = async () => {
@@ -47,15 +50,20 @@ const Cast = () => {
       const { profile_path, name, character, id } = credit;
       const imgPath = `https://image.tmdb.org/t/p/w500/${profile_path}`
       return (
-      <li key={id} className={styles.castMember}>
-        <img src={imgPath} alt={name} width='150'></img>
-        <div>
-          <p>{name}</p>
-          <p>{`Character: ${character}`}</p>
-        </div>
-      </li>
-    );
-    })
+        <li key={id} className={styles.castMember}>
+          <img
+            className={styles.img}
+            src={profile_path ? imgPath : imgPlaceholder}
+            alt={name}
+            width='150'
+          ></img>
+          <div>
+            <p>{name}</p>
+            <p>{`Character: ${character}`}</p>
+          </div>
+        </li>
+      );
+    });
     return CreditsList;
   };
   

@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 
 import { fetchFilmInfo } from '../Api/MovieApi.js';
 
+import logo from '../img/image-placeholder.jpg'
+
 import styles from './styles/MovieDetails.module.css';
 
 export const MovieDetails = () => {
   const { filmId } = useParams();
   const [filmData, setFilmData] = useState([]);
-  const location = useLocation()
-  
+  const location = useLocation();
+
+  const [onImgError, setImgError] = useState(false)
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,6 +27,9 @@ export const MovieDetails = () => {
     };
     fetchData();
   }, [filmId]);
+
+
+
 
 
   const renderFilmInfo = () => {
@@ -39,11 +47,17 @@ export const MovieDetails = () => {
 
     const year = release_date.split('-');
     const genresList = genres.map(item => item.name).join(', ');
-    const imgPath = `https://image.tmdb.org/t/p/w500/${poster_path}`
+    let imgPath = `https://image.tmdb.org/t/p/w500/${poster_path}`
 
     return (
       <section className={styles.filmSection}>
-        <img src={imgPath} alt={title}  className={styles.poster} width='350'></img>
+        <img
+          src={!onImgError ? imgPath : logo }
+          alt={title}
+          className={styles.poster}
+          width='350'
+          onError={() => setImgError(true)}
+        ></img>
         <div className={styles.infoSection}>
           <h1 className={styles.title}>{`${title} (${year[0]})`}</h1>
           <p>{`User Score: ${Math.round(vote_average * 10)}%`}</p>

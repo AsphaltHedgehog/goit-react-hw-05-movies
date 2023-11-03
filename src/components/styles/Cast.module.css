@@ -8,6 +8,7 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .castMember {
@@ -23,4 +24,11 @@
 .errorMessage {
   color: red;
   font-weight: bold;
+}
+
+.img {
+  width: 175px;
+  height: 225px;
+
+  object-fit: cover;
 }
